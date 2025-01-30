@@ -3,6 +3,42 @@
     ViewData["Title"] = "Home Page";
 }
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<!-- Dark Mode Styles -->
+<style>
+    body.dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+    }
+    .dark-mode .text-center, .dark-mode div {
+        background-color: #1e1e1e;
+    }
+    .dark-mode button {
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #fff;
+    }
+    
+    .dark-mode button:hover {
+        background-color: #555;
+    }
+    
+    .dark-mode button:disabled {
+        background-color: #222;
+        color: #444;
+    }
+    
+    .dark-mode .navbar-brand {
+        color: #fff;
+    }
+    
+    .dark-mode header {
+        background-color: #333 !important;
+    }
+</style>
+
+<button id="darkModeToggle" style="position: fixed; top: 10px; right: 10px;">🌙/☀️</button>
+
 <div class="text-center">
     @{
         var culture = new System.Globalization.CultureInfo("cs-CZ");
@@ -19,8 +55,8 @@
     }
 
     <h1 class="display-4">Dnes je @day</h1>
-    <div class="d-flex align-items-center justify-content-center mt-4">
-        <img src="~/img/beer.png" class="fas fa-beer" alt="beer" class="me-3" style="width: 48px;" />
+    <div class="d-flex align-items-center justify-content-center mt-4 gap-3">
+        <img src="~/img/pivko.png" class="fas fa-beer" alt="beer" class="me-3" style="width: 48px;" />
         <h2 id="countdown" class="display-6"></h2>
     </div>
     <hr/>
@@ -95,7 +131,7 @@
         function updateCountdown() {
             let now = new Date();
             let remainingTime = targetTime - now;
-
+            
             if (remainingTime > 0) {
                 let days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
                 let hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -117,4 +153,20 @@
     // Pass the calculated next Friday time from Razor to JavaScript
     let nextFriday = new Date("@nextFriday.ToString("yyyy-MM-ddTHH:mm:ss")");
     startCountdown(nextFriday);
+
+    // Dark Mode Toggle
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    const body = document.body;
+
+    function toggleDarkMode() {
+        body.classList.toggle("dark-mode");
+        localStorage.setItem("darkMode", body.classList.contains("dark-mode") ? "enabled" : "disabled");
+    }
+
+    darkModeToggle.addEventListener("click", toggleDarkMode);
+
+    // Check user preference
+    if (localStorage.getItem("darkMode") === "enabled") {
+        body.classList.add("dark-mode");
+    }
 </script>
