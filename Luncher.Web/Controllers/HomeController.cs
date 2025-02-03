@@ -19,5 +19,10 @@ namespace Luncher.Web.Controllers
 
             return View(restaurants);
         }
+
+        public IActionResult TermsOfService()
+        {
+            return View();
+        }
     }
 }
