@@ -12,7 +12,7 @@ internal class NCRestaurant : RestaurantBase
     protected override async Task<Domain.Entities.Restaurant> GetInfoCoreAsync(CancellationToken cancellationToken)
     {
         var meals = new List<Meal>();
-        meals.Add(Meal.Create("Gyros, pikantní omáčka"));
+        meals.Add(Meal.Create("Gyros, nudle, pikantní omáčka"));
 
         return Restaurant.Create(Type, Menu.Create(meals));
     }
