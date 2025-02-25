@@ -97,6 +97,8 @@
         {
             Console.WriteLine("No forecast available for 11:00 AM CET.");
         }
+
+        var mostVotedRestaurant = Model.OrderByDescending(r => r.Votes).FirstOrDefault();
     }
 
     <h1 class="display-4">Dnes je @day</h1>
@@ -130,12 +132,16 @@
     @foreach (var restaurant in Model)
     {
         <div class="@restaurant.Name">
+            @if (restaurant == mostVotedRestaurant && restaurant.Votes > 0)
+            {
+                <i class="fas fa-crown" style="color: gold; font-size: 1.5em;"></i>
+            }
             <h2 style="display: inline-block">@restaurant.Name</h2>
-            <span>|   </span>
+            <span>| </span>
             <button class="vote-btn" style="display: inline-block;">Hlasuj</button>
-            <span>   |</span>
+            <span> |</span>
             <span class="votes" style="display: inline-block;font-weight: bold;">@restaurant.Votes</span>
-            <br />
+            <br/>
 
             @if (!restaurant.Soaps.Any() && !restaurant.Meals.Any())
             {
@@ -150,7 +156,7 @@
                         <li>@soap.Name</li>
                     }
                 </ul>
-                <br />
+                <br/>
 
                 <h5>Hlavní</h5>
                 <ul>
@@ -161,7 +167,7 @@
                 </ul>
             }
 
-            <hr />
+            <hr/>
         </div>
     }
 </div>

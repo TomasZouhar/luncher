@@ -9,7 +9,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
         private readonly HtmlWeb _htmlWeb;
         private string Url => $"http://www.indicka-restaurace-annapurna.cz/mc/php/handlers/getDocument.php?documentName=weekly-menu&locationName=Brno";
 
-        public AnnapurnaRestaurant() : base(RestaurantType.Annapurna)
+        public AnnapurnaRestaurant() : base(RestaurantType.Annapurna, "Annapurna")
         {
             _htmlWeb = new HtmlWeb();
         }
@@ -35,9 +35,9 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
 
             if (soups.Count == 0)
             {
-                return Restaurant.Create(Type, Menu.Create(meals));
+                return Restaurant.Create(Type, Menu.Create(meals), Name);
             }
-            return Restaurant.Create(Type, Menu.Create(meals, soups));
+            return Restaurant.Create(Type, Menu.Create(meals, soups), Name);
         }
 
         private string GetToday()

@@ -13,7 +13,7 @@ namespace Luncher.Adapters.ThirdParty
 
         private string Url => $"https://www.menicka.cz/2787-tusto-titanium.html";
 
-        public TustoRestaurant() : base(RestaurantType.Tusto)
+        public TustoRestaurant() : base(RestaurantType.Tusto, "Tusto")
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _htmlWeb = new HtmlWeb();
@@ -40,7 +40,7 @@ namespace Luncher.Adapters.ThirdParty
                 .Select(s => Meal.Create(Regex.Replace(s, @"^[0-9]\.", "")))
                 .ToList();
 
-            return Restaurant.Create(Type, Menu.Create(meals, soaps));
+            return Restaurant.Create(Type, Menu.Create(meals, soaps), Name);
 
         }
     }

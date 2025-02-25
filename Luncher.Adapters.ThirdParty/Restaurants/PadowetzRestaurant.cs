@@ -12,7 +12,7 @@ namespace Luncher.Adapters.ThirdParty
         private readonly HtmlWeb _htmlWeb;
         private string Url => $"http://www.restaurant-padowetz.cz/poledni-menu.html";
 
-        public PadowetzRestaurant() : base(RestaurantType.Padowetz)
+        public PadowetzRestaurant() : base(RestaurantType.Padowetz, "Padowetz")
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _htmlWeb = new HtmlWeb();
@@ -40,7 +40,7 @@ namespace Luncher.Adapters.ThirdParty
                 .TakeLast(5)
                 .ToList();
 
-            return Restaurant.Create(Type, Menu.Create(meals, soaps));
+            return Restaurant.Create(Type, Menu.Create(meals, soaps), Name);
         }
     }
 }

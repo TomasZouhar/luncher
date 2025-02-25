@@ -13,7 +13,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
 
         private string Url => $"https://www.charliessquare.cz/menu/";
 
-        public CharliesRestaurant() : base(RestaurantType.Charlies)
+        public CharliesRestaurant() : base(RestaurantType.Charlies, "Charlie's Square")
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _htmlWeb = new HtmlWeb();
@@ -47,7 +47,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
                     .Last().InnerText.Trim())
             };
 
-            return Restaurant.Create(Type, Menu.Create(meals, soap));
+            return Restaurant.Create(Type, Menu.Create(meals, soap), Name);
 
         }
     }

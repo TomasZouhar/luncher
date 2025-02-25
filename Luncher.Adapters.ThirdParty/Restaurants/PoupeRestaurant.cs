@@ -10,7 +10,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
         private readonly HtmlWeb _htmlWeb;
         private string Url => "https://www.pivovar-poupe.cz";
 
-        public PoupeRestaurant() : base(RestaurantType.Poupe)
+        public PoupeRestaurant() : base(RestaurantType.Poupe, "Poupě")
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _htmlWeb = new HtmlWeb();
@@ -32,7 +32,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
 
             if (accordionItem == null)
             {
-                return Restaurant.Create(Type, Menu.Create(new List<Meal>(), new List<Soap>()));
+                return Restaurant.Create(Type, Menu.Create(new List<Meal>(), new List<Soap>()), Name);
             }
 
             var meals = accordionItem.Descendants("div")
@@ -52,7 +52,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
                 soaps.Add(Soap.Create(soup.InnerText.Trim()));
             }
 
-            return Restaurant.Create(Type, Menu.Create(meals, soaps));
+            return Restaurant.Create(Type, Menu.Create(meals, soaps), Name);
         }
     }
 }

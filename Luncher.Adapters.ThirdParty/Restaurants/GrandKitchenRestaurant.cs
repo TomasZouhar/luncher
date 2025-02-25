@@ -13,7 +13,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
         private readonly HtmlWeb _htmlWeb;
         private string Url => "https://www.menubot.cz/app/users/pcgkv21524598494946161846445/export/dailymenu_a.js";
 
-        public GrandKitchenRestaurant() : base(RestaurantType.GrandKitchen)
+        public GrandKitchenRestaurant() : base(RestaurantType.GrandKitchen, "Grand Kitchen")
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _htmlWeb = new HtmlWeb();
@@ -42,7 +42,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
                     .Take(3)
                     .ToList();
 
-                return Restaurant.Create(Type, Menu.Create(meals, soaps));
+                return Restaurant.Create(Type, Menu.Create(meals, soaps), Name);
             }
             catch (Exception e)
             {

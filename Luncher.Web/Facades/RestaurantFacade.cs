@@ -31,7 +31,7 @@ namespace Luncher.Web.Services
                 .Select(async s =>
                 {
                     var restaurant = JsonSerializer.Deserialize<RestaurantResponse>(_cache.GetString(GetRestaurantKey(s)));
-                    var restaurantType = (RestaurantType)Enum.Parse(typeof(RestaurantType), restaurant!.Name);
+                    var restaurantType = (RestaurantType)Enum.Parse(typeof(RestaurantType), restaurant!.Type);
                     var restaurantVote = await GetVotesAsync(restaurantType);
                     return restaurant! with { Votes = restaurantVote.UserIds.Count };
                 })

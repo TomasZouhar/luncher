@@ -12,7 +12,7 @@ namespace Luncher.Adapters.ThirdParty
         private readonly HtmlWeb _htmlWeb;
         private string Url => $"https://gardenpub.cz/poledni-menu";
 
-        public GardenRestaurant() : base(RestaurantType.Garden)
+        public GardenRestaurant() : base(RestaurantType.Garden, "Garden")
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _htmlWeb = new HtmlWeb();
@@ -40,7 +40,7 @@ namespace Luncher.Adapters.ThirdParty
                 .Take(new Range(1, 6))
                 .ToList();
 
-            return Restaurant.Create(Type, Menu.Create(meals, soaps));
+            return Restaurant.Create(Type, Menu.Create(meals, soaps), Name);
         }
     }
 }
