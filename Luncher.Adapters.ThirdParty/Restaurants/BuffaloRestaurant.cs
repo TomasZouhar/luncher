@@ -10,7 +10,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
         private readonly HtmlWeb _htmlWeb;
         private string Url => "https://restauracebuffalo.cz/denni-menu/";
 
-        public BuffaloRestaurant() : base(RestaurantType.Buffalo)
+        public BuffaloRestaurant() : base(RestaurantType.Buffalo, "American Buffalo")
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _htmlWeb = new HtmlWeb();
@@ -63,7 +63,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
                 soaps.Add(Soap.Create(soap.InnerText.Trim()));
             }
             
-            return Restaurant.Create(Type, Menu.Create(meals, soaps));
+            return Restaurant.Create(Type, Menu.Create(meals, soaps), Name);
         }
     }
 }

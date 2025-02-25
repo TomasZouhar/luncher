@@ -7,9 +7,10 @@
         Buffalo = 2,
         NC = 3,
         Annapurna = 4,
-        Tusto = 5,
-        GrandKitchen = 6,
-        Poupe = 7,
-        Padowetz = 8,
+        Kocourek = 5,
+        Tusto = 6,
+        GrandKitchen = 7,
+        Poupe = 8,
+        Padowetz = 9,
     }
 }

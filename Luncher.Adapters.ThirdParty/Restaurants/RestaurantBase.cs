@@ -6,8 +6,13 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
     internal abstract class RestaurantBase : Domain.Contracts.IRestaurant
     {
         public RestaurantType Type { get; }
+        public string? Name { get; set; }
 
-        public RestaurantBase(RestaurantType restaurantType) => Type = restaurantType;
+        public RestaurantBase(RestaurantType restaurantType, string? name)
+        {
+            Type = restaurantType;
+            Name = name;
+        }
 
         public async Task<Restaurant> GetInfoAsync(CancellationToken cancellationToken)
         {
@@ -18,7 +23,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
             catch (Exception)
             {
                 //Log
-                return Restaurant.Create(Type, Menu.Empty);
+                return Restaurant.Create(Type, Menu.Empty, null);
             }
         }
 

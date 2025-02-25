@@ -5,7 +5,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants;
 
 internal class NCRestaurant : RestaurantBase
 {
-    public NCRestaurant() : base(RestaurantType.NC)
+    public NCRestaurant() : base(RestaurantType.NC, "NC Královo Pole")
     {
     }
 
@@ -14,6 +14,6 @@ internal class NCRestaurant : RestaurantBase
         var meals = new List<Meal>();
         meals.Add(Meal.Create("Gyros, nudle, pikantní omáčka"));
 
-        return Restaurant.Create(Type, Menu.Create(meals));
+        return Restaurant.Create(Type, Menu.Create(meals), Name);
     }
 }
