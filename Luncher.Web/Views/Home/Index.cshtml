@@ -131,7 +131,7 @@
 <div>
     @foreach (var restaurant in Model)
     {
-        <div class="@restaurant.Name">
+        <div class="@restaurant.Type">
             @if (restaurant == mostVotedRestaurant && restaurant.Votes > 0)
             {
                 <i class="fas fa-crown" style="color: gold; font-size: 1.5em;"></i>
