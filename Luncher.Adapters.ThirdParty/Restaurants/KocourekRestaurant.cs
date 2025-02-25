@@ -17,10 +17,10 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
         protected override async Task<Domain.Entities.Restaurant> GetInfoCoreAsync(CancellationToken cancellationToken)
         {
             var currentYear = DateTime.Now.Year;
-            var currentDayInYear = DateTime.Now.DayOfYear;
-            var currentWeekInYear = currentDayInYear / 5;
+            var currentWeekInYear = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            var currentWeekInYearString = currentWeekInYear < 10 ? $"0{currentWeekInYear}" : currentWeekInYear.ToString();
 
-            var url = $"http://www.jidelnakocourek.cz/jidelny-listek/{currentYear}{currentWeekInYear}";
+            var url = $"http://www.jidelnakocourek.cz/jidelny-listek/{currentYear}{currentWeekInYearString}.html";
             
             var htmlDocument = await _htmlWeb.LoadFromWebAsync(url, cancellationToken);
             int dayOfWeek = (int)DateTime.Now.DayOfWeek - 1;
@@ -28,7 +28,7 @@ namespace Luncher.Adapters.ThirdParty.Restaurants
             var mainDiv = htmlDocument.DocumentNode
                 .Descendants("div").First(s => s.Attributes.Contains("id") && s.Attributes["id"].Value == "maincontent");
             
-            var tables = mainDiv.Descendants("table").ToList();
+            var tables = mainDiv.Descendants("table").Skip(1).ToList();
             var todayTable = tables[dayOfWeek];
             
             var menuItems = todayTable.Descendants("tr").ToList();
