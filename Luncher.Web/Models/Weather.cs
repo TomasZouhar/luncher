@@ -6,4 +6,5 @@ public class Weather
     public string? WindSpeed { get; set; }
     public string? Humidity { get; set; }
     public string? Cloudiness { get; set; }
+    public string? Rain { get; set; }
 }

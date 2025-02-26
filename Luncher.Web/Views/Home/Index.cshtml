@@ -76,22 +76,26 @@
 
         var times = product?.Descendants("time");
         
-        var time = times?.FirstOrDefault(t => t.Attribute("from").Value.Contains("11:00:00"));
+        var time = times?.Where(t => t.Attribute("from").Value.Contains("11:00:00"));
+        
+        var rainElement = time?.FirstOrDefault(t => t.Element("location")?.Element("precipitation") != null);
 
         var weather = new Weather();
         if (time != null)
         {
-            var location = time.Element("location");
+            var location = time.FirstOrDefault().Element("location");
             weather.Temperature = location?.Element("temperature")?.Attribute("value")?.Value;
             weather.WindSpeed = location?.Element("windSpeed")?.Attribute("mps")?.Value;
             weather.Humidity = location?.Element("humidity")?.Attribute("value")?.Value;
             weather.Cloudiness = location?.Element("cloudiness")?.Attribute("percent")?.Value;
+            weather.Rain = rainElement?.Element("location")?.Element("precipitation")?.Attribute("value")?.Value+"mm";
             
             Console.WriteLine($"Weather at 11:00 AM CET:");
             Console.WriteLine($"Temperature: {weather.Temperature}°C");
             Console.WriteLine($"Wind Speed: {weather.WindSpeed} m/s");
             Console.WriteLine($"Humidity: {weather.Humidity}%");
             Console.WriteLine($"Cloudiness: {weather.Cloudiness}%");
+            Console.WriteLine($"Rain: {weather.Rain} mm");
         }
         else
         {
@@ -118,6 +122,8 @@
                 <span>Vlhkost: @weather.Humidity %</span>
                 <span>|</span>
                 <span>Zataženost: @weather.Cloudiness %</span>
+                <span>|</span>
+                <span>Srážky: @weather.Rain</span>
             </div>
         </div>
     }
