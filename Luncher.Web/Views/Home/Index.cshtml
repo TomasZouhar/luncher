@@ -103,6 +103,20 @@
         }
 
         var mostVotedRestaurant = Model.OrderByDescending(r => r.Votes).FirstOrDefault();
+        
+        var nameday = client.GetStringAsync("https://svatky.adresa.info/xml").Result;
+        /*
+         * <svatky>
+           <svatek>
+           <date>0303</date>
+           <name>Kamil</name>
+           </svatek>
+           </svatky>
+         */
+        
+        XDocument namedayXml = XDocument.Parse(nameday);
+        var namedayElement = namedayXml.Descendants("svatek").Descendants("name").FirstOrDefault();
+        var namedayName = namedayElement?.Value;
     }
 
     <h1 class="display-4">Dnes je @day</h1>
@@ -125,6 +139,12 @@
                 <span>|</span>
                 <span>Srážky: @weather.Rain</span>
             </div>
+        </div>
+    }
+    @if (!String.IsNullOrEmpty(namedayName))
+    {
+        <div class="d-flex align-items-center justify-content-center">
+            <p>Svátek má @namedayName</p>
         </div>
     }
     <div class="d-flex align-items-center justify-content-center mt-4 gap-3">
