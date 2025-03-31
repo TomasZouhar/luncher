@@ -38,11 +38,12 @@ function setVote(event) {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(
             {
-                restaurantId: restaurantId,
+                restaurantId: "Kocourek",
                 userId: getUserId()
             }),
         complete: function () {
             event.target.disabled = true;
+            alert("Dobrý výběr, děkujeme za Váš hlas!");
         }
     });
 }
@@ -68,13 +69,13 @@ function loadVotedRestaurants() {
 }
 
 function getUserId() {
-    var userId = localStorage.getItem("luncher:userId");
-    if (userId) {
-        return userId;
-    }
+    //var userId = localStorage.getItem("luncher:userId");
+    //if (userId) {
+    //    return userId;
+    //}
 
-    userId = Math.random().toString(36);
-    localStorage.setItem("luncher:userId", userId);
+    var userId = Math.random().toString(36);
+    //localStorage.setItem("luncher:userId", userId);
 
     return userId;
 }
