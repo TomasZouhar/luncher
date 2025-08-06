@@ -57,17 +57,6 @@ internal class TesarRestaurant : RestaurantBase
                         var mainText = HtmlEntity.DeEntitize(item.InnerText).Trim();
                         mainText = CleanMenuText(mainText);
 
-                        // Append nested descriptions if present
-                        var subItems = item.SelectNodes("./ul/li");
-                        if (subItems != null && subItems.Count > 0)
-                        {
-                            var nestedDescriptions = subItems
-                                .Select(sub => HtmlEntity.DeEntitize(sub.InnerText).Trim())
-                                .Select(CleanMenuText);
-
-                            mainText += " - " + string.Join(", ", nestedDescriptions);
-                        }
-
                         if (string.IsNullOrWhiteSpace(mainText)) continue;
 
                         if (currentSection == "soups")
