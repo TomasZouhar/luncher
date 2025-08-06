@@ -11,6 +11,7 @@
         Tusto = 6,
         GrandKitchen = 7,
         Poupe = 8,
-        Padowetz = 9,
+        Tesar = 9,
+        Padowetz = 10,
     }
 }
