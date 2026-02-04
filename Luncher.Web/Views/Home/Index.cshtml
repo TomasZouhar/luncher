@@ -105,7 +105,7 @@
 
         var mostVotedRestaurant = Model.OrderByDescending(r => r.Votes).FirstOrDefault();
         
-        var nameday = client.GetStringAsync("https://svatky.adresa.info/xml").Result;
+        //var nameday = client.GetStringAsync("https://svatky.adresa.info/xml").Result;
         /*
          * <svatky>
            <svatek>
@@ -115,9 +115,9 @@
            </svatky>
          */
         
-        XDocument namedayXml = XDocument.Parse(nameday);
-        var namedayElement = namedayXml.Descendants("svatek").Descendants("name").FirstOrDefault();
-        var namedayName = namedayElement?.Value;
+        //XDocument namedayXml = XDocument.Parse(nameday);
+        //var namedayElement = namedayXml.Descendants("svatek").Descendants("name").FirstOrDefault();
+        var namedayName = "Out of Order";
     }
 
     <h1 class="display-4">Dnes je @day</h1>
